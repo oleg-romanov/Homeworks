@@ -1,0 +1,217 @@
+#1 
+select model, speed, hd 
+from PC
+where price < 500
+
+#2
+select distinct maker
+from Product
+where type = 'Printer'
+
+#3
+select model, ram, screen
+from Laptop
+where price > '1000'
+
+#4
+select *
+from Printer
+where color = 'y'
+
+#5
+select model, speed, hd
+from PC
+where (cd = '12x' OR cd ='24x') AND price < '600'
+
+#6
+select DISTINCT maker, speed
+from Product INNER JOIN 
+ Laptop ON Product.model = Laptop.model
+where hd = 10 or hd > 10
+ORDER BY maker
+
+#7
+select DISTINCT Product.model, price
+from Product INNER JOIN 
+ PC ON Product.model = PC.model
+where maker = 'B'
+UNION
+
+select DISTINCT Product.model, price
+from Product INNER JOIN 
+ Laptop ON Product.model = Laptop.model
+where maker = 'B'
+UNION
+
+select DISTINCT Product.model, price
+from Product INNER JOIN 
+ Printer ON Product.model = Printer.model
+where maker = 'B'
+
+#8
+select DISTINCT Product.maker
+from Product
+where Product.type='PC' and
+Product.maker not in (
+select Product.maker
+from Product
+where Product.type = 'Laptop')
+
+#9
+select DISTINCT maker
+from Product INNER JOIN 
+ PC ON Product.model = PC.model
+where PC.speed > 450 or PC.speed = 450
+
+#10
+select model, price
+from Printer
+where price = (select MAX(price)
+from printer)
+
+#11
+select AVG(speed)
+from PC
+
+#12
+select AVG(speed)
+from laptop
+where price > 1000
+
+#13
+select SUM(PC.speed) / COUNT(*)
+from PC
+where PC.model in (select Product.model from Product
+where Product.maker = 'A')
+
+#14
+select Classes.class, name, Classes.country
+from Ships INNER JOIN Classes ON Classes.class = Ships.class
+where numGuns > 10 OR numGuns = 10
+
+#15
+select hd
+from PC
+GROUP BY hd
+HAVING COUNT(hd) > 2 OR COUNT(hd) = 2
+
+#16
+select DISTINCT a.model, b.model, a.speed, a.ram
+from pc a, pc b
+where a.ram = b.ram
+AND a.speed = b.speed
+AND a.model > b.model
+
+#17
+select DISTINCT Product.type, Laptop.model, Laptop.speed
+from Laptop, Product
+where Laptop.model = Product.model
+AND speed < ALL (select speed from PC)
+
+#18
+select DISTINCT Product.maker, Printer.price
+from Product, Printer
+where Product.model = Printer.model
+AND Printer.color = 'Y'
+AND Printer.price = (select MIN(P.price)
+from Printer P
+where P.color = 'Y')
+
+#20
+select P.maker, count(*)
+from Product P
+where P.type = 'PC'
+GROUP BY P.maker
+HAVING count(*) >= 3
+
+#22
+select speed, AVG(price) 
+from PC
+GROUP BY PC.speed
+HAVING (speed>600)
+
+#31
+select class, country
+from Classes
+where bore>=16
+
+#33
+select ship
+from Outcomes
+where battle='North Atlantic'
+AND result='sunk'
+
+#34
+select name
+from Ships, Classes
+where launched >=1922
+AND displacement > 35000
+AND Classes.class = Ships.class
+AND type='bb'
+
+#38
+select DISTINCT country 
+from Classes 
+where type ='bb'
+INTERSECT
+select DISTINCT country 
+from Classes 
+where type ='bc'
+
+
+#42
+select o.ship, o.battle
+from outcomes o
+LEFT JOIN Battles b ON b.name=o.battle
+where o.result = 'sunk'
+
+#48
+select class
+from ships, outcomes
+where outcomes.ship=Ships.name
+AND result='sunk'
+UNION
+select ship
+from outcomes, classes
+where classes.class=outcomes.ship
+AND result='sunk'
+
+#49
+select name
+from ships, classes
+where ships.class=classes.class
+AND bore=16
+UNION
+select ship
+from outcomes, classes
+where outcomes.ship=classes.class
+AND bore=16
+
+#50
+select distinct battle
+from Classes
+inner JOIN Ships  ON ships.class = classes.class
+inner JOIN Outcomes  ON Classes.class=Outcomes.ship or Ships.name=Outcomes.ship
+where classes.class = 'Kongo'
+
+#44
+select name
+from ships
+where name like 'R%'
+UNION
+select name
+from battles
+where name like 'R%'
+UNION
+select ship
+from outcomes
+where ship like 'R%'
+
+#45
+select name
+from Ships
+where name LIKE '% % %'
+UNION
+select ship
+from Outcomes
+where ship LIKE '% % %'
