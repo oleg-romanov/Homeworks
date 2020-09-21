@@ -165,6 +165,28 @@ from outcomes o
 LEFT JOIN Battles b ON b.name=o.battle
 where o.result = 'sunk'
 
+#44
+select name
+from ships
+where name like 'R%'
+UNION
+select name
+from battles
+where name like 'R%'
+UNION
+select ship
+from outcomes
+where ship like 'R%'
+
+#45
+select name
+from Ships
+where name LIKE '% % %'
+UNION
+select ship
+from Outcomes
+where ship LIKE '% % %'
+
 #48
 select class
 from ships, outcomes
@@ -193,25 +215,3 @@ from Classes
 inner JOIN Ships  ON ships.class = classes.class
 inner JOIN Outcomes  ON Classes.class=Outcomes.ship or Ships.name=Outcomes.ship
 where classes.class = 'Kongo'
-
-#44
-select name
-from ships
-where name like 'R%'
-UNION
-select name
-from battles
-where name like 'R%'
-UNION
-select ship
-from outcomes
-where ship like 'R%'
-
-#45
-select name
-from Ships
-where name LIKE '% % %'
-UNION
-select ship
-from Outcomes
-where ship LIKE '% % %'
