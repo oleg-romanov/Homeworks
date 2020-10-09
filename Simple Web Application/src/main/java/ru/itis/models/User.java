@@ -1,22 +1,14 @@
+package ru.itis.models;
 
-
-/**
- * 25.09.2020
- * 2. DB
- *
- * @author Sidikov Marsel (First Software Engineering Platform)
- * @version v1.0
- */
 public class User {
     private Long id;
     private String firstName;
     private String lastName;
     private Integer age;
 
-    public User(Long id, String firstName, String lastName, Integer age) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
+    public User (String firsName, String lastname, Integer age){
+        this.firstName = firsName;
+        this.lastName = lastname;
         this.age = age;
     }
 
@@ -35,4 +27,5 @@ public class User {
     public Integer getAge() {
         return age;
     }
+
 }

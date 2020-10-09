@@ -1,5 +1,3 @@
-package ru.itis;
-
 import java.util.List;
 
 /**
