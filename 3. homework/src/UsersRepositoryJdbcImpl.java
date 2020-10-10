@@ -25,7 +25,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
 
     @Override
     public List<User> findAllByAge(Integer age) {
-        //TODO: реализовать
+        //TODO: реализовать (ИСПРАВИТЬ)!!!
         try {
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(SQL_SELECT_ALL_FROM_DRIVER);
