@@ -18,6 +18,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     private Connection connection;
 
     private static final String SQL_SELECT_ALL_FROM_DRIVER = "select * from driver";
+    private static final String SQL_SELECT_BY_AGE_FROM_DRIVER = "select age from driver";
 
     public UsersRepositoryJdbcImpl(Connection connection) {
         this.connection = connection;
