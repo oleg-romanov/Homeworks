@@ -33,6 +33,7 @@ public class AuthenticationFilter implements Filter {
         Boolean sessionExists = session != null;
         Boolean isLoginPage = request.getRequestURI().equals("/signIn");
         Boolean isSignUpPage = request.getRequestURI().equals("/signUp");
+        boolean isStaticResource = request.getRequestURI().startsWith("/css/");
 
         if (sessionExists) {
             isAuthenticated = (Boolean) session.getAttribute("authenticated");
@@ -43,10 +44,10 @@ public class AuthenticationFilter implements Filter {
         }
 
         // если авторизован и запрашивает не логин или если не авторизован и запрашивает логин
-        if (isAuthenticated && !isLoginPage || !isAuthenticated && isLoginPage || !isAuthenticated && isSignUpPage) {
+        if (isAuthenticated && !isLoginPage || !isAuthenticated && isLoginPage || !isAuthenticated && isSignUpPage || isStaticResource) {
             // отдаем ему то, что он хочет
             filterChain.doFilter(request, response);
-        } else if (isAuthenticated && isLoginPage) {
+        } else if (isAuthenticated) {
             // пользователь аутенцифицирован и запрашивает страницу входа
             // - отдаем ему корень
             response.sendRedirect("/");

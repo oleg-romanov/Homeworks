@@ -16,8 +16,19 @@ import java.io.IOException;
  */
 @WebServlet("")
 public class RootServlet extends HttpServlet {
+    int counter = 0;
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/jsp/root.jsp").forward(req, resp);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        counter++;
+        resp.setStatus(HttpServletResponse.SC_OK);
+        resp.getWriter().write(String.valueOf(counter));
+        resp.getWriter().flush();
+        resp.getWriter().close();
     }
 }

@@ -14,6 +14,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 
 @WebServlet("/signUp")
 public class ProfileServlet extends HttpServlet {
@@ -30,6 +31,7 @@ public class ProfileServlet extends HttpServlet {
         } catch (ClassNotFoundException e) {
             throw new IllegalStateException(e);
         }
+
 
         try {
             Connection connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);

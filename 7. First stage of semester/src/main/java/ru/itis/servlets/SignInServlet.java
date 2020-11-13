@@ -23,6 +23,7 @@ import java.util.Optional;
  * @author Sidikov Marsel (First Software Engineering Platform)
  * @version v1.0
  */
+
 @WebServlet("/signIn")
 public class SignInServlet extends HttpServlet {
 
@@ -34,8 +35,8 @@ public class SignInServlet extends HttpServlet {
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("/jsp/signIn.jsp").forward(req, resp);
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.getRequestDispatcher("/jsp/signIn.jsp").forward(request, response);
     }
 
     @Override
@@ -50,7 +51,7 @@ public class SignInServlet extends HttpServlet {
         if (isCorrect) {
             HttpSession httpSession = request.getSession(true);
             httpSession.setAttribute("authenticated", true);
-            // httSession.setAttribute("user", currentUser);
+            //httSession.setAttribute("user", currentUser);
             response.sendRedirect("/");
         } else {
             response.sendRedirect("/signIn");
