@@ -23,10 +23,11 @@ public class ProfileServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //  Это все ерунда какая-то... я запутался
-        String email = (String) request.getSession().getAttribute("authenticated");
+        String email = (String) request.getSession().getAttribute("email");
         UserDto dto = usersService.getUserByEmail(email);
         request.setAttribute("userDtoForJsp", dto);
         request.getRequestDispatcher("/jsp/profile.jsp").forward(request, response);
     }
+
+
 }

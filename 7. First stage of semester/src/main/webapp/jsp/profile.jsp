@@ -1,4 +1,5 @@
-<%@ page import="ru.itis.dto.UserDto" %><%--
+<%@ page import="ru.itis.dto.UserDto" %>
+<%@ page import="java.io.PrintWriter" %><%--
   Created by IntelliJ IDEA.
   User: olegromanov
   Date: 11/14/20
@@ -15,8 +16,10 @@
         <p>
             <%
                 UserDto dto = (UserDto) request.getAttribute("userDtoForJsp");
-                System.out.println(dto);
             %>
+            <%=dto.getEmail()%>
+            <%=dto.getFirstName()%>
+            <%=dto.getLastName()%>
         </p>
     </div>
 </body>

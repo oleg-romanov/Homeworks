@@ -11,10 +11,7 @@ import ru.itis.services.userService.UsersService;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.Optional;
 
@@ -53,6 +50,7 @@ public class SignInServlet extends HttpServlet {
         if (isCorrect) {
             HttpSession httpSession = request.getSession(true);
             httpSession.setAttribute("authenticated", true);
+            httpSession.setAttribute("email", form.getEmail());
             //httSession.setAttribute("user", currentUser);
             response.sendRedirect("/");
         } else {
