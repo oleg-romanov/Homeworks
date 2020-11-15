@@ -1,6 +1,5 @@
 package ru.itis.model.entity;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data

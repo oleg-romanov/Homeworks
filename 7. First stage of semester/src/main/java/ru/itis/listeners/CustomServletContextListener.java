@@ -7,6 +7,8 @@ import ru.itis.services.signInServices.SignInService;
 import ru.itis.services.signInServices.SignInServiceImpl;
 import ru.itis.services.signUpServices.SignUpService;
 import ru.itis.services.signUpServices.SignUpServiceImpl;
+import ru.itis.services.userService.UsersService;
+import ru.itis.services.userService.UsersServiceImpl;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
@@ -40,8 +42,10 @@ public class CustomServletContextListener implements ServletContextListener {
         UsersRepository usersRepository = new UsersRepositoryJdbcImpl(dataSource);
         SignUpService signUpService = new SignUpServiceImpl(usersRepository);
         SignInService signInService = new SignInServiceImpl(usersRepository);
+        UsersService usersService = new UsersServiceImpl(usersRepository);
         servletContext.setAttribute("signUpService", signUpService);
         servletContext.setAttribute("signInService", signInService);
+        servletContext.setAttribute("usersService", usersService);
 }
 
     @Override

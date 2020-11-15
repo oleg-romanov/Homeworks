@@ -1,16 +1,13 @@
 package ru.itis.filters;
 
-import ru.itis.dto.UserDto;
-import ru.itis.services.UsersService;
+import ru.itis.services.userService.UsersService;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.Optional;
 
 @WebFilter("/*")
 public class AuthenticationFilter implements Filter {

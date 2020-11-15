@@ -21,7 +21,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
     //language=SQL
     private final static String SQL_INSERT = "insert into service_user(first_name, last_name, email, hash_password) " +
             "values (?, ?, ?, ?)";
-    private final static String SQL_SELECT_BY_EMAIL_FROM_SERVICE_USER = "select * from service_user where email = ?";
+    private final static String SQL_SELECT_BY_EMAIL_FROM_SHOP_USER = "select * from service_user where email = ?";
 
     public UsersRepositoryJdbcImpl(DataSource dataSource) {
         this.dataSource = dataSource;
@@ -88,7 +88,7 @@ public class UsersRepositoryJdbcImpl implements UsersRepository {
         ResultSet resultSet = null;
         try {
             connection = dataSource.getConnection();
-            statement = connection.prepareStatement(SQL_SELECT_BY_EMAIL_FROM_SERVICE_USER);
+            statement = connection.prepareStatement(SQL_SELECT_BY_EMAIL_FROM_SHOP_USER);
             statement.setString(1, email);
             resultSet = statement.executeQuery();
             User user = User.builder().build();

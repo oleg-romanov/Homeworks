@@ -1,4 +1,4 @@
-package ru.itis.services;
+package ru.itis.services.userService;
 
 import ru.itis.dto.UserDto;
 
@@ -12,5 +12,5 @@ import java.util.Optional;
  * @version v1.0
  */
 public interface UsersService {
-    Optional<UserDto> getUserByCookie(String value);
+    UserDto getUserByEmail(String email);
 }

@@ -1,10 +1,12 @@
 package ru.itis.servlets;
 
 import ru.itis.dto.SignInForm;
+import ru.itis.dto.UserDto;
 import ru.itis.models.User;
 import ru.itis.repositories.UsersRepository;
 import ru.itis.services.signInServices.SignInService;
 import ru.itis.services.signUpServices.SignUpService;
+import ru.itis.services.userService.UsersService;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
