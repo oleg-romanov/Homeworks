@@ -9,6 +9,7 @@
 <html>
 <head>
     <title>Title</title>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/root.css">
     <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
     <script type="application/javascript">
         function sendCountRequest() {
@@ -22,7 +23,8 @@
     </script>
 </head>
 <body>
-<h1>Root page</h1>
+<h1>Здесь пока происходят эксперименты, все появится, но чууть позднее</h1>
+    <a href="/profile">Профиль</a>
     <button onclick="sendCountRequest()">Count</button>
     <div id="counter">Counter value from server</div>
 </body>

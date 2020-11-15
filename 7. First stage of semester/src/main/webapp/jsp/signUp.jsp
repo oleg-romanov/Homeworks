@@ -47,6 +47,7 @@
             </div>
             <div class="form-group">
                 <button type="submit" class="btn-right" value="SignIn">РЕГИСТРАЦИЯ</button>
+                <a href="/signIn" class="btn-left">ВОЙТИ</a>
             </div>
         </form>
     </div>

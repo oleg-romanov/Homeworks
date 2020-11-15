@@ -47,7 +47,7 @@ public class AuthenticationFilter implements Filter {
         } else if (isAuthenticated) {
             // пользователь аутенцифицирован и запрашивает страницу входа
             // - отдаем ему корень
-            response.sendRedirect("/");
+            response.sendRedirect("/profile");
         } else {
             // если пользователь не аутенцицицирован и запрашивает другие страницы
             response.sendRedirect("/signIn");

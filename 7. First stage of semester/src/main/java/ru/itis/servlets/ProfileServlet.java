@@ -28,6 +28,4 @@ public class ProfileServlet extends HttpServlet {
         request.setAttribute("userDtoForJsp", dto);
         request.getRequestDispatcher("/jsp/profile.jsp").forward(request, response);
     }
-
-
 }
