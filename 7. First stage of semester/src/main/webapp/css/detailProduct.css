@@ -1,0 +1,9 @@
+img {
+    width: 400px;
+    border-radius: 20px;
+    margin: 40px 0;
+}
+
+.container {
+    padding: 15px 50px;
+}

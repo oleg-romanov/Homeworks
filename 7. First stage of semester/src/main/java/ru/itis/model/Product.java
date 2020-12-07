@@ -1,16 +1,15 @@
 package ru.itis.model;
 
-import ru.itis.model.entity.Entity;
-
 import java.util.List;
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
-public class Product extends Entity {
+public class Product  {
+    private Long id;
     private String name;
-    private Category category;
-    private List<ProductVariant> variants;
+    private Long categoryId;
     private String description;
+    private Long imageId;
 }

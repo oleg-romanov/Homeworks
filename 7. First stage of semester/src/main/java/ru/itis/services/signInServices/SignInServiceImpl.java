@@ -1,10 +1,11 @@
 package ru.itis.services.signInServices;
 
+import com.sun.org.apache.xpath.internal.operations.Bool;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.dto.SignInForm;
-import ru.itis.models.User;
-import ru.itis.repositories.UsersRepository;
+import ru.itis.model.User;
+import ru.itis.repositories.usersRepository.UsersRepository;
 import java.util.Optional;
 
 public class SignInServiceImpl implements SignInService {
@@ -19,14 +20,19 @@ public class SignInServiceImpl implements SignInService {
     }
 
     @Override
-    public boolean signIn(SignInForm form) {
+    public boolean signIn(SignInForm form, Boolean asAmin) {
         String email = form.getEmail();
         String password = form.getPassword();
         System.out.println(password);
-        Optional<User> user = usersRepository.findByEmail(email);
-        if (user.get().getEmail() == null) {
+        Optional<User> optionalUser = usersRepository.findByEmail(email);
+        if(optionalUser.isPresent() == false) {
             return false;
         }
-        return passwordEncoder.matches(password, user.get().getHashPassword());
+        User user = optionalUser.get();
+        if (user.getIsAdmin() == false && asAmin) { return false; }
+        if (user.getEmail() == null) {
+            return false;
+        }
+        return passwordEncoder.matches(password, user.getHashPassword());
     }
 }

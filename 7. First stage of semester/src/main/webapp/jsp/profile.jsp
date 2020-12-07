@@ -1,5 +1,6 @@
 <%@ page import="ru.itis.dto.UserDto" %>
-<%@ page import="java.io.PrintWriter" %><%--
+<%@ page import="java.io.PrintWriter" %>
+<%--
   Created by IntelliJ IDEA.
   User: olegromanov
   Date: 11/14/20
@@ -11,73 +12,95 @@
 <head>
     <title>Profile</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/profile.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/style.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
     <link rel="script" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js">
+    <script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 </head>
 <body>
-<%--    <div>--%>
-<%--        <h1>Профиль</h1>--%>
-<%--        <p>--%>
-<%--            <%--%>
-<%--                UserDto dto = (UserDto) request.getAttribute("userDtoForJsp");--%>
-<%--            %>--%>
-<%--            <%=dto.getEmail()%>--%>
-<%--            <%=dto.getFirstName()%>--%>
-<%--            <%=dto.getLastName()%>--%>
-<%--        </p>--%>
-<%--    </div>--%>
 <%
     UserDto dto = (UserDto) request.getAttribute("userDtoForJsp");
 %>
-<div class="page-content page-container" id="page-content">
-    <div class="padding">
-        <div class="row container d-flex justify-content-center">
-            <div class="col-xl-6 col-md-12">
-                <div class="card user-card-full">
-                    <div class="row m-l-0 m-r-0">
-                        <div class="col-sm-4 bg-c-lite-green user-profile">
-                            <div class="card-block text-center text-white">
-                                <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
-                                <h6 class="f-w-600"><%=dto.getFirstName()%> <%=dto.getLastName()%></h6>
-                                <p>User</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                            </div>
-                        </div>
-                        <div class="col-sm-8">
-                            <div class="card-block">
-                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                <div class="row">
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Email</p>
-                                        <h6 class="text-muted f-w-400"><%=dto.getEmail()%></h6>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <p class="m-b-10 f-w-600">Phone</p>
-                                        <h6 class="text-muted f-w-400">98979989898</h6>
-                                    </div>
-                                </div>
-<%--                                <h6 class="m-b-20 m-t-40 p-b-5 b-b-default f-w-600">Projects</h6>--%>
-<%--                                <div class="row">--%>
-<%--                                    <div class="col-sm-6">--%>
-<%--                                        <p class="m-b-10 f-w-600">Recent</p>--%>
-<%--                                        <h6 class="text-muted f-w-400">Sam Disuja</h6>--%>
-<%--                                    </div>--%>
-<%--                                    <div class="col-sm-6">--%>
-<%--                                        <p class="m-b-10 f-w-600">Most Viewed</p>--%>
-<%--                                        <h6 class="text-muted f-w-400">Dinoter husainm</h6>--%>
-<%--                                    </div>--%>
-<%--                                </div>--%>
-                                <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                                    <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
+<header>
+    <ul class="menu-main">
+        <li><a href="/">Главная</a> </li>
+        <li><a href="/categories">Каталог</a></li>
+        <li><a href="/about">About</a></li>
+        <li><a href="/profile" class="current">Профиль</a></li>
+    </ul>
+</header>
+
+    <script>
+        function sendUser() {
+            let email = $('#newEmail').val();
+            let firstName = $('#newFirstName').val();
+            let lastName = $('#newLastName').val();
+
+            let data = {
+                "email": email,
+                "firstName": firstName,
+                "lastName": lastName
+            };
+
+            let request = $.ajax({
+                type: "POST", // метод запроса
+                url: "/profile", //урл запроса
+                data: JSON.stringify(data), // данные для отправки из JSON-объекта превращаем в JSON-строку
+                //тип данных, который мы отпралвяем
+                // dataType: "json",
+                // contentType: "application/json"
+            });
+
+            request.done(function () {
+                if (email !== '') {
+                    $('#emailLabel').html(email);
+                    $('#newEmail').val('');
+                }
+                if (firstName !== '') {
+                    $('#nameLabel').html(firstName);
+                }
+                if (lastName !== '') {
+                    $('#surnameLabel').html(lastName);
+                }
+            });
+
+            request.fail(function () {
+                alert("Fail")
+            });
+        }
+    </script>
+
+    <div id="settings" class="container">
+        <h1>Настройки</h1>
+
+            <div class="image">
+                <img style="width: 400px; border-radius: 40px; margin: 40px 0;" alt="avatar" src="/images/<%=dto.getImageId()%>"/>
+                <form action="/image-upload?profile_id=<%=dto.getId()%>" method="post" enctype="multipart/form-data">
+                    <input name="image" type="file" accept="image/jpeg,image/png" required>
+                    <input type="submit">
+                </form>
             </div>
-        </div>
+
+            <div class="email">
+                <h3>Ваш текущий адрес электронной почты:</h3>
+                <h4 id="emailLabel"><%=dto.getEmail()%></h4>
+                <h3>Если вы хотите изменить электронную почту, укажите в поле ниже новый адрес электронной почты:</h3>
+                <input type="text" id="newEmail" placeholder="Новый адрес электронной почты">
+            </div>
+
+            <div class="fio">
+                <h3>Ваше имя</h3>
+                <h4 id="nameLabel"><%=dto.getFirstName()%></h4>
+                <h3>Если вы хотите изменить имя, введите новое имя в поле ниже:</h3>
+                <input type="text" id="newFirstName" placeholder="Обновленное имя">
+
+                <h3>Ваша фамилия</h3>
+                <h4 id="surnameLabel"><%=dto.getLastName()%></h4>
+                <h3>Если вы хотите изменить имя, введите новое имя в поле ниже:</h3>
+                <input type="text" id="newLastName" placeholder="Обновленная фамилия">
+            </div>
+                <button onclick="sendUser()">Изменить</button>
     </div>
-</div>
 </body>
 </html>

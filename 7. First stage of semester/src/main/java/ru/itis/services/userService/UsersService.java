@@ -13,4 +13,5 @@ import java.util.Optional;
  */
 public interface UsersService {
     UserDto getUserByEmail(String email);
+    Boolean updateDataOfUser(UserDto newDto, UserDto oldDto);
 }

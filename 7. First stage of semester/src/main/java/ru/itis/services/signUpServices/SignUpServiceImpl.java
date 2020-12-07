@@ -3,17 +3,10 @@ package ru.itis.services.signUpServices;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import ru.itis.dto.SignUpForm;
-import ru.itis.models.User;
-import ru.itis.repositories.UsersRepository;
-import ru.itis.services.signUpServices.SignUpService;
+import ru.itis.model.User;
+import ru.itis.repositories.usersRepository.UsersRepository;
 
-/**
- * 23.10.2020
- * 4. Simple Web Application
- *
- * @author Sidikov Marsel (First Software Engineering Platform)
- * @version v1.0
- */
+
 public class SignUpServiceImpl implements SignUpService {
 
     private UsersRepository usersRepository;
@@ -31,7 +24,9 @@ public class SignUpServiceImpl implements SignUpService {
                 .firstName(form.getFirstName())
                 .lastName(form.getLastName())
                 .email(form.getEmail())
+//                .phoneNumber(form.getPhoneNumber())
                 .hashPassword(passwordEncoder.encode(form.getPassword()))
+                .isAdmin(false)
                 .build();
 
         usersRepository.save(user);

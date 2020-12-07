@@ -1,8 +1,16 @@
 package ru.itis.listeners;
 
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import ru.itis.repositories.UsersRepository;
-import ru.itis.repositories.UsersRepositoryJdbcImpl;
+import ru.itis.repositories.categoryRepository.CategoryRepository;
+import ru.itis.repositories.categoryRepository.CategoryRepositoryJdbcImpl;
+import ru.itis.repositories.filesRepository.ImagesRepository;
+import ru.itis.repositories.filesRepository.ImagesRepositoryImpl;
+import ru.itis.repositories.productRepository.ProductRepository;
+import ru.itis.repositories.productRepository.ProductRepositoryJdbcImpl;
+import ru.itis.repositories.usersRepository.UsersRepository;
+import ru.itis.repositories.usersRepository.UsersRepositoryJdbcImpl;
+import ru.itis.services.fileUpdoadService.FileUploadService;
+import ru.itis.services.fileUpdoadService.FileUploadServiceImpl;
 import ru.itis.services.signInServices.SignInService;
 import ru.itis.services.signInServices.SignInServiceImpl;
 import ru.itis.services.signUpServices.SignUpService;
@@ -14,18 +22,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
 
-/**
- * 23.10.2020
- * 4. Simple Web Application
- *
- * @author Sidikov Marsel (First Software Engineering Platform)
- * @version v1.0
- */
 @WebListener
 public class CustomServletContextListener implements ServletContextListener {
 
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/11-906";
+    private static final String DB_URL = "jdbc:postgresql://localhost:5432/OnlineShop";
     private static final String DB_USERNAME = "postgres";
     private static final String DB_PASSWORD = "bmwm5";
     private static final String DB_DRIVER = "org.postgresql.Driver";
@@ -39,13 +43,27 @@ public class CustomServletContextListener implements ServletContextListener {
         dataSource.setPassword(DB_PASSWORD);
         dataSource.setUrl(DB_URL);
 
+        ValidatorFactory validatorFactory = Validation.buildDefaultValidatorFactory();
+        Validator validator = validatorFactory.getValidator();
+
+        CategoryRepository categoryRepository = new CategoryRepositoryJdbcImpl(dataSource);
+        ProductRepository productRepository = new ProductRepositoryJdbcImpl(dataSource, categoryRepository);
         UsersRepository usersRepository = new UsersRepositoryJdbcImpl(dataSource);
+        ImagesRepository imagesRepository = new ImagesRepositoryImpl(dataSource);
+
         SignUpService signUpService = new SignUpServiceImpl(usersRepository);
         SignInService signInService = new SignInServiceImpl(usersRepository);
         UsersService usersService = new UsersServiceImpl(usersRepository);
+        FileUploadService fileUploadService = new FileUploadServiceImpl(imagesRepository);
+
+        servletContext.setAttribute("productRepository", productRepository);
+        servletContext.setAttribute("categoryRepository", categoryRepository);
         servletContext.setAttribute("signUpService", signUpService);
         servletContext.setAttribute("signInService", signInService);
         servletContext.setAttribute("usersService", usersService);
+        servletContext.setAttribute("usersRepository", usersRepository);
+        servletContext.setAttribute("validator", validator);
+        servletContext.setAttribute("filesUploadService", fileUploadService);
 }
 
     @Override

@@ -1,16 +1,3 @@
-a {
-    float: right;
-    font-size: 14px;
-    color: #fff;
-    background: #00b4ef;
-    border-radius: 30px;
-    padding: 10px 25px;
-    border: none;
-    text-transform: capitalize;
-    transition: all 0.5s ease 0s;
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: none;
+.container {
+    padding: 15px 50px;
 }

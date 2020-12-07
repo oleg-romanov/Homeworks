@@ -1,15 +1,21 @@
 package ru.itis.model;
 
-import ru.itis.model.entity.Entity;
-import lombok.Builder;
-import lombok.Data;
+import lombok.*;
 
 @Data
 @Builder
-public class User extends Entity {
+@Getter
+@Setter
+@EqualsAndHashCode
+@ToString
+public class User {
+    private Long id;
     private String name;
     private String firstName;
     private String lastName;
+    private String phoneNumber;
     private String email;
     private String hashPassword;
+    private Long imageId;
+    private Boolean isAdmin;
 }
